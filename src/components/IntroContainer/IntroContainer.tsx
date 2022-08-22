@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) => ({
   background: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -22,10 +23,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   innerContainer: {
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     width: '50vw',
     height: '379px',
     borderRadius: '8px',
-    border: 'solid 1px #FDC844',
+    // border: 'solid 1px #FDC844',
     // boxShadow: '0px 2px 4px 0px rgba(40, 42, 43, 0.3)',
     overflow: 'hidden',
     position: 'relative',
@@ -74,6 +77,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   content: {
     // background: 'white',
+    overflow: 'visible',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     padding: '4em',
     flex: 1,
@@ -82,9 +90,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   title: {
-    color: '#FDC844',
+    color: '#03fcd7',
     margin: '1em 0 1em',
     fontSize: '3.125rem',
+    'font-weight': '600',
     [theme.breakpoints.down('sm')]: {
       margin: 0,
       fontSize: '2rem',

@@ -118,14 +118,14 @@ export default createTheme({
     },
   },
   typography: {
-    fontFamily: 'Fira Sans, sans-serif',
+    fontFamily: 'sans-serif',
   },
   palette: {
     primary: {
       main: '#FDC844',
     },
   },
-  brand: '#E22525',
+  brand: '#03fcd7',
   footerHeight: 72,
   mobileFooterHeight: 56,
   sidebarWidth: 300,
