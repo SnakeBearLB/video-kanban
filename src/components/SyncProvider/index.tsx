@@ -86,7 +86,7 @@ export const SyncProvider: React.FC = ({ children }) => {
     if (room && syncClient) {
       // Get columns
       syncClient
-        .list('columns')
+        .list(`columns${room.sid}`)
         .then(function(list) {
           list
             //@ts-ignore
@@ -102,7 +102,7 @@ export const SyncProvider: React.FC = ({ children }) => {
 
       // Get cards
       syncClient
-        .list('cards')
+        .list(`cards${room.sid}`)
         .then(function(list) {
           //@ts-ignore
           list.getItems().then(function(cards) {
@@ -113,7 +113,7 @@ export const SyncProvider: React.FC = ({ children }) => {
           onError(new Error('There was a problem getting data from twilio sync.'));
         });
 
-      syncClient!.list('columns').then(list => {
+      syncClient!.list(`columns${room.sid}`).then(list => {
         list.on('itemRemoved', () => {
           updateColumns();
         });
@@ -130,7 +130,7 @@ export const SyncProvider: React.FC = ({ children }) => {
         });
       });
 
-      syncClient!.list('cards').then(list => {
+      syncClient!.list(`cards${room.sid}`).then(list => {
         list.on('itemRemoved', () => {
           updateCards();
         });
@@ -146,7 +146,7 @@ export const SyncProvider: React.FC = ({ children }) => {
       });
 
       const updateCards = async () => {
-        const cards = await syncClient!.list('cards');
+        const cards = await syncClient!.list(`cards${room.sid}`);
         // @ts-ignore
         const cardsList = await cards.getItems();
         setCardsList(cardsList.items);
@@ -157,8 +157,8 @@ export const SyncProvider: React.FC = ({ children }) => {
   useEffect(() => {}, [columnsList]);
 
   const deleteColumn = async (index: number) => {
-    const cards = await syncClient!.list('cards');
-    syncClient!.list('columns').then(columns => {
+    const cards = await syncClient!.list(`cards${room!.sid}`);
+    syncClient!.list(`columns${room!.sid}`).then(columns => {
       columns
         .mutate(index, (column: any) => {
           column.cards.forEach((card: any) => {
@@ -175,7 +175,7 @@ export const SyncProvider: React.FC = ({ children }) => {
 
   // add to function helper doc
   const updateColumns = async () => {
-    const columns = await syncClient!.list('columns');
+    const columns = await syncClient!.list(`columns${room!.sid}`);
     //@ts-ignore
     const columnsList = await columns.getItems();
     // console.log(columnsList)
@@ -188,7 +188,7 @@ export const SyncProvider: React.FC = ({ children }) => {
       setIsAddingColumn(false);
       return;
     }
-    const columns = await syncClient!.list('columns');
+    const columns = await syncClient!.list(`columns${room!.sid}`);
     // have to use ts-ignore here. typescript requires an argument be passed to getItems() even though it's not required by twilio.
     // @ts-ignore
     const columnsList = await columns.getItems();
@@ -207,7 +207,7 @@ export const SyncProvider: React.FC = ({ children }) => {
     if (cardText === '') {
       return;
     }
-    syncClient!.list('cards').then((cards: any) => {
+    syncClient!.list(`cards${room!.sid}`).then((cards: any) => {
       cards
         .push({
           text: cardText,
@@ -216,7 +216,7 @@ export const SyncProvider: React.FC = ({ children }) => {
           return cardItem.index;
         })
         .then((index: any) => {
-          syncClient!.list('columns').then(columns => {
+          syncClient!.list(`columns${room!.sid}`).then(columns => {
             columns.get(fromColumn).then((column: any) => {
               const cards = column.data.cards;
               cards.push(index);
@@ -228,9 +228,9 @@ export const SyncProvider: React.FC = ({ children }) => {
   };
 
   const deleteCard = async (id: number, columnId: number) => {
-    const cards = await syncClient!.list('cards');
+    const cards = await syncClient!.list(`cards${room!.sid}`);
     syncClient!
-      .list('columns')
+      .list(`columns${room!.sid}`)
       .then(columns => {
         columns.get(columnId).then((column: any) => {
           const cards = column.data.cards;
@@ -245,7 +245,7 @@ export const SyncProvider: React.FC = ({ children }) => {
   };
 
   const changeCardText = async (cardText: string, cardId: number) => {
-    const cards = await syncClient!.list('cards');
+    const cards = await syncClient!.list(`cards${room!.sid}`);
     cards.update(cardId, { text: cardText });
   };
 
@@ -282,11 +282,7 @@ export const SyncProvider: React.FC = ({ children }) => {
       setColumnDestination(columnId);
 
       // move card to different column
-    } else if (
-      dragging.classList[0] === 'card' &&
-      e.target.classList[0] === 'column'
-      // && targetCardList === undefined
-    ) {
+    } else if (dragging.classList[0] === 'card' && e.target.classList[0] === 'column') {
       setCardDestination(enterId);
       setColumnDestination(columnId);
       setDroppingType('crossColumn');
@@ -314,7 +310,7 @@ export const SyncProvider: React.FC = ({ children }) => {
       const itemToInsert = currentList.splice(draggedColumnIndex, 1);
       currentList.splice(columnDestinationIndex, 0, itemToInsert[0]);
 
-      syncClient!.list('columns').then(columns => {
+      syncClient!.list(`columns${room!.sid}`).then(columns => {
         currentList.forEach((column, i) => {
           columns.update(column.index, { position: i });
         });
@@ -325,7 +321,7 @@ export const SyncProvider: React.FC = ({ children }) => {
       const toColumn = copyList.find(column => column.index === columnDestination);
       if (toColumn.data.cards.length === 0) {
       }
-      syncClient!.list('columns').then((columns: any) => {
+      syncClient!.list(`columns${room!.sid}`).then((columns: any) => {
         columns
           .get(columnOrigin)
           .then((column: any) => {
@@ -347,7 +343,7 @@ export const SyncProvider: React.FC = ({ children }) => {
     if (droppingType === 'card') {
       const toColumn = copyList.find(column => column.index === columnDestination);
 
-      syncClient!.list('columns').then((columns: any) => {
+      syncClient!.list(`columns${room!.sid}`).then((columns: any) => {
         columns.get(columnOrigin).then((column: any) => {
           const cards: Array<any> = column.data.cards;
           const cardTargetId = cards.findIndex(card => card === cardDestination);
