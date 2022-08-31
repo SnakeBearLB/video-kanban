@@ -96,7 +96,7 @@ export const SyncProvider: React.FC = ({ children }) => {
               setColumnsList(columns.items);
             });
           if (!list.dateExpires) {
-            list.setTtl(300);
+            list.setTtl(3600);
           }
           console.log(list);
         })
@@ -113,7 +113,7 @@ export const SyncProvider: React.FC = ({ children }) => {
             setCardsList(cards.items);
           });
           if (!list.dateExpires) {
-            list.setTtl(300);
+            list.setTtl(3600);
           }
           console.log(list);
         })
