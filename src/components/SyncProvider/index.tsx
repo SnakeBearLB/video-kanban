@@ -95,6 +95,10 @@ export const SyncProvider: React.FC = ({ children }) => {
             .then(function(columns) {
               setColumnsList(columns.items);
             });
+          if (!list.dateExpires) {
+            list.setTtl(300);
+          }
+          console.log(list);
         })
         .catch(e => {
           onError(new Error('There was a problem getting data from twilio sync.'));
@@ -108,6 +112,10 @@ export const SyncProvider: React.FC = ({ children }) => {
           list.getItems().then(function(cards) {
             setCardsList(cards.items);
           });
+          if (!list.dateExpires) {
+            list.setTtl(300);
+          }
+          console.log(list);
         })
         .catch(e => {
           onError(new Error('There was a problem getting data from twilio sync.'));
@@ -274,7 +282,6 @@ export const SyncProvider: React.FC = ({ children }) => {
     e.preventDefault();
     e.stopPropagation();
     const enterId: any = parseInt(e.currentTarget.id, 10);
-    // const targetCardList = cardList.find((card: any)=> card.column === enterId);
 
     if (dragging.classList[0] === 'card' && e.target.classList[0] === 'card') {
       setDroppingType('card');

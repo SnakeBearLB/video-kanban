@@ -9,17 +9,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   inputContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     margin: '1.5em 0 3.5em',
-    '& div:not(:last-child)': {
-      marginRight: '1em',
-    },
+    // '& div:not(:last-child)': {
+    //   marginRight: '1em',
+    // },
     [theme.breakpoints.down('sm')]: {
       margin: '1.5em 0 2em',
     },
   },
   textFieldContainer: {
     width: '100%',
+    marginBottom: '1em',
   },
   continueButton: {
     [theme.breakpoints.down('sm')]: {
@@ -52,13 +55,13 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
 
   return (
     <>
-      <Typography variant="h5" className={classes.gutterBottom}>
+      {/* <Typography variant="h5" className={classes.gutterBottom}>
         Join a Room
-      </Typography>
+      </Typography> */}
       <Typography variant="body1">
         {hasUsername
           ? "Enter the name of a room you'd like to join."
-          : "Enter your name and the name of a room you'd like to join"}
+          : "Enter your name and the name of a room you'd like to join. If a room with the name you input doen't exist, one will be started for you."}
       </Typography>
       <form onSubmit={handleSubmit}>
         <div className={classes.inputContainer}>
@@ -92,7 +95,7 @@ export default function RoomNameScreen({ name, roomName, setName, setRoomName, h
             />
           </div>
         </div>
-        <Grid container justifyContent="flex-end">
+        <Grid container justifyContent="center">
           <Button
             variant="contained"
             type="submit"
