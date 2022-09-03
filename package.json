@@ -48,13 +48,11 @@
   },
   "scripts": {
     "postinstall": "rimraf public/virtualbackground && copyfiles -f node_modules/@twilio/video-processors/dist/build/* public/virtualbackground",
-    "start": "concurrently npm:server npm:dev",
-    "dev": "react-scripts start",
+    "start": "react-scripts start",
     "build": "node ./scripts/build.js",
     "test": "cross-env TZ=utc jest",
     "eject": "react-scripts eject",
     "lint": "eslint src server",
-    "server": "ts-node -T -P server/tsconfig.json server/index.ts",
     "typescript:server": "tsc --noEmit -p server/",
     "test:ci": "cross-env TZ=utc jest --ci --runInBand --reporters=default --reporters=jest-junit --coverage --silent",
     "cypress:open": "cypress open",
@@ -114,7 +112,6 @@
       "pre-commit": "lint-staged"
     }
   },
-  "proxy": "http://localhost:8081/",
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"

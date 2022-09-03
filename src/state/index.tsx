@@ -65,11 +65,11 @@ export default function AppStateProvider(props: React.PropsWithChildren<{}>) {
       ...usePasscodeAuth(), // eslint-disable-line react-hooks/rules-of-hooks
     };
   } else {
+    var create_room = true;
     contextValue = {
       ...contextValue,
       getToken: async (user_identity, room_name) => {
         const endpoint = process.env.REACT_APP_TOKEN_ENDPOINT || '/token';
-        console.log(process.env.TWILIO_SYNC_SERVICE_SID);
         return fetch(endpoint, {
           method: 'POST',
           headers: {
@@ -78,14 +78,14 @@ export default function AppStateProvider(props: React.PropsWithChildren<{}>) {
           body: JSON.stringify({
             user_identity,
             room_name,
+            create_room,
             create_conversation: process.env.REACT_APP_DISABLE_TWILIO_CONVERSATIONS !== 'true',
-            // create_sync: process.env.TWILIO_SYNC_SERVICE_SID,
           }),
         }).then(res => res.json());
       },
       updateRecordingRules: async (room_sid, rules) => {
         const endpoint = process.env.REACT_APP_TOKEN_ENDPOINT || '/recordingrules';
-
+        console.log(endpoint);
         return fetch(endpoint, {
           headers: {
             'Content-Type': 'application/json',

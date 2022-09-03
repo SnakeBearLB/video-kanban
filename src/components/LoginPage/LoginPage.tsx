@@ -128,7 +128,7 @@ export default function LoginPage() {
                 </div>
               </div>
             </Grid>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="center">
               <Button
                 variant="contained"
                 color="primary"
