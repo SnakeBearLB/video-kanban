@@ -1,8 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import Swoosh from './swoosh';
-import VideoLogo from './VideoLogo';
-import TwilioLogo from './TwilioLogo';
 import { useAppState } from '../../state';
 import UserMenu from './UserMenu/UserMenu';
 import { useLocation } from 'react-router-dom';
@@ -26,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: '379px',
     borderRadius: '8px',
     border: 'solid 1px #FDC844',
-    // boxShadow: '0px 2px 4px 0px rgba(40, 42, 43, 0.3)',
     overflow: 'hidden',
     position: 'relative',
     margin: 'auto',
@@ -73,7 +70,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: '20px',
   },
   content: {
-    // background: 'white',
     width: '100%',
     padding: '4em',
     flex: 1,
@@ -106,18 +102,9 @@ const IntroContainer = (props: IntroContainerProps) => {
       <Typography variant="h1" className={classes.title}>
         Virtual Venue
       </Typography>
-      {/* <TwilioLogo className={classes.twilioLogo} /> */}
       {user && location.pathname !== '/login' && <UserMenu />}
       <div className={classes.container}>
         <div className={classes.innerContainer}>
-          {/* <div className={classes.swooshContainer}>
-            <div className={classes.logoContainer}>
-              <VideoLogo />
-              <Typography variant="h6" className={classes.title}>
-                Twilio Programmable Video
-              </Typography>
-            </div>
-          </div> */}
           <div className={classes.content}>{props.children}</div>
         </div>
       </div>
