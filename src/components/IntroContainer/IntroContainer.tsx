@@ -7,12 +7,7 @@ import { useLocation } from 'react-router-dom';
 const useStyles = makeStyles((theme: Theme) => ({
   background: {
     width: '100%',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'center',
-    // justifyContent: 'center',
     background: 'rgb(27, 27, 27)',
-    // height: '100%',
   },
   container: {
     position: 'relative',
