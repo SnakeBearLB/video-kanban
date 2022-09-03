@@ -98,7 +98,6 @@ export const SyncProvider: React.FC = ({ children }) => {
           if (!list.dateExpires) {
             list.setTtl(3600);
           }
-          console.log(list);
         })
         .catch(e => {
           onError(new Error('There was a problem getting data from twilio sync.'));
