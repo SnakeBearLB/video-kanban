@@ -7,4 +7,10 @@ The purpose of this application is for users to have better collaboration tools 
 The video functionality and the file structure of this app was built by Twilio.
 
 The kanban functionalities were built by me and incorporated into the already existing Twilio codebase.
+<br/>
 
+---
+
+## APP
+
+click [here](https://lucent-biscuit-65a545.netlify.app) to see a live demo!

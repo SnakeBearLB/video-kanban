@@ -47,7 +47,7 @@ export default createTheme({
       root: {
         borderRadius: '4px',
         textTransform: 'none',
-        color: '#FDC844',
+        color: '#03fcd7',
         fontSize: '0.9rem',
         transition: defaultTheme.transitions.create(['background-color', 'box-shadow', 'border', 'color'], {
           duration: defaultTheme.transitions.duration.short,
@@ -66,7 +66,7 @@ export default createTheme({
         },
       },
       outlinedPrimary: {
-        border: '2px solid #FDC844',
+        border: '2px solid #03fcd7',
         '&:hover': {
           border: '2px solid rgba(2, 122, 197, .20)',
         },
@@ -101,6 +101,7 @@ export default createTheme({
       root: {
         color: '#ffffff',
         backgroundColor: '#ffffff',
+        borderRadius: '5px',
       },
     },
     MuiInputLabel: {
@@ -113,7 +114,7 @@ export default createTheme({
     },
     MuiOutlinedInput: {
       notchedOutline: {
-        borderColor: '#FDC844',
+        borderColor: '#03fcd7',
       },
     },
   },
@@ -122,7 +123,7 @@ export default createTheme({
   },
   palette: {
     primary: {
-      main: '#FDC844',
+      main: '#03fcd7',
     },
   },
   brand: '#03fcd7',
