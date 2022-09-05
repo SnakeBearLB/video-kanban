@@ -13,6 +13,9 @@ const useStyles = makeStyles({
   heading: {
     marginBottom: '0.4em',
   },
+  text: {
+    color: 'black',
+  },
 });
 
 export default function UnsupportedBrowserWarning({ children }: { children: React.ReactElement }) {
@@ -27,7 +30,7 @@ export default function UnsupportedBrowserWarning({ children }: { children: Reac
               <Typography variant="h4" className={classes.heading}>
                 Browser or context not supported
               </Typography>
-              <Typography>
+              <Typography className={classes.text}>
                 Please open this application in one of the{' '}
                 <Link
                   href="https://www.twilio.com/docs/video/javascript#supported-browsers"
