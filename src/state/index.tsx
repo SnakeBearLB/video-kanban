@@ -70,6 +70,7 @@ export default function AppStateProvider(props: React.PropsWithChildren<{}>) {
       ...contextValue,
       getToken: async (user_identity, room_name) => {
         const endpoint = process.env.REACT_APP_TOKEN_ENDPOINT || '/token';
+        console.log(endpoint);
         return fetch(endpoint, {
           method: 'POST',
           headers: {
@@ -85,7 +86,7 @@ export default function AppStateProvider(props: React.PropsWithChildren<{}>) {
       },
       updateRecordingRules: async (room_sid, rules) => {
         const endpoint = process.env.REACT_APP_TOKEN_ENDPOINT || '/recordingrules';
-        console.log(endpoint);
+
         return fetch(endpoint, {
           headers: {
             'Content-Type': 'application/json',
