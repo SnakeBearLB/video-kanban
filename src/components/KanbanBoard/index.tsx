@@ -8,6 +8,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import useSyncContext from '../../hooks/useSyncContext/useSyncContext';
 import AddColumnForm from './AddColumnForm/AddColumnForm';
+import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,10 +46,12 @@ export default function KanbanBoard() {
 
   const { columnsList, syncClient, isAddingColumn, setIsAddingColumn, handleDragOver, dropDragging } = useSyncContext();
 
+  const { room } = useVideoContext();
+
   // TODO: change column title function
   const changeColumnTitle = async (newTitle: string, columnId: number) => {
     if (syncClient) {
-      syncClient.list('columns').then(function(columns) {
+      syncClient.list(`columns${room!.sid}`).then(function(columns) {
         columns.update(columnId, { text: newTitle });
       });
     }
