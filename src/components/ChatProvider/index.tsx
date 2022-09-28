@@ -24,29 +24,33 @@ export const ChatProvider: React.FC = ({ children }) => {
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
   const [chatClient, setChatClient] = useState<Client>();
 
-  // this is being passed in context and called in the DeviceSelectionScreen.tsx doc
   const connect = useCallback(
     (token: string) => {
-      Client.create(token)
-        .then(client => {
-          //@ts-ignore
+      const client = new Client(token);
+
+      const handleClientInitialized = (state: string) => {
+        if (state === 'initialized') {
+          // @ts-ignore
           window.chatClient = client;
           setChatClient(client);
-        })
-        .catch(e => {
-          console.error(e);
+        } else if (state === 'failed') {
           onError(new Error("There was a problem connecting to Twilio's conversation service."));
-        });
+        }
+      };
+
+      client.on('stateChanged', handleClientInitialized);
+
+      return () => {
+        client.off('stateChanged', handleClientInitialized);
+      };
     },
     [onError]
   );
 
   useEffect(() => {
     if (conversation) {
-      // get messages and add to messages state
       const handleMessageAdded = (message: Message) => setMessages(oldMessages => [...oldMessages, message]);
       conversation.getMessages().then(newMessages => setMessages(newMessages.items));
-      // event listener through twilio
       conversation.on('messageAdded', handleMessageAdded);
       return () => {
         conversation.off('messageAdded', handleMessageAdded);
@@ -81,7 +85,7 @@ export const ChatProvider: React.FC = ({ children }) => {
         });
     }
   }, [room, chatClient, onError]);
-  // returning the context that was set by createContext above.
+
   return (
     <ChatContext.Provider
       value={{ isChatWindowOpen, setIsChatWindowOpen, connect, hasUnreadMessages, messages, conversation }}
