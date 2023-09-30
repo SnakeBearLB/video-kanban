@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '50vw',
-    height: '379px',
     borderRadius: '8px',
     overflow: 'hidden',
     position: 'relative',

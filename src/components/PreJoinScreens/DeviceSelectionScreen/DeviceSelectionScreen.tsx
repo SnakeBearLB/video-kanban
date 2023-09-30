@@ -19,6 +19,25 @@ const useStyles = makeStyles((theme: Theme) => ({
   marginTop: {
     marginTop: '1em',
   },
+  connectingIndicatorContainer: {
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  joiningMeetingTextStyles: {
+    fontWeight: 'bold',
+    fontSize: '16px',
+    color: 'white',
+  },
+  deviceSelectionElementsContainer: {
+    justifyContent: 'center',
+  },
+  deviceAndJoinButtonsContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%',
+  },
   deviceButton: {
     width: '100%',
     border: '2px solid #aaa',
@@ -78,12 +97,12 @@ export default function DeviceSelectionScreen({ name, roomName, setStep }: Devic
 
   if (isFetching || isConnecting) {
     return (
-      <Grid container justifyContent="center" alignItems="center" direction="column" style={{ height: '100%' }}>
+      <Grid container className={classes.connectingIndicatorContainer}>
         <div>
           <CircularProgress variant="indeterminate" />
         </div>
         <div>
-          <Typography variant="body2" style={{ fontWeight: 'bold', fontSize: '16px', color: 'white' }}>
+          <Typography variant="body2" className={classes.joiningMeetingTextStyles}>
             Joining Meeting
           </Typography>
         </div>
@@ -97,7 +116,7 @@ export default function DeviceSelectionScreen({ name, roomName, setStep }: Devic
         Joining Room: {roomName}
       </Typography>
 
-      <Grid container justifyContent="center">
+      <Grid container className={classes.deviceSelectionElementsContainer}>
         <Grid item md={7} sm={12} xs={12}>
           <div className={classes.localPreviewContainer}>
             <LocalVideoPreview identity={name} />
@@ -111,7 +130,7 @@ export default function DeviceSelectionScreen({ name, roomName, setStep }: Devic
           </div>
         </Grid>
         <Grid item md={5} sm={12} xs={12}>
-          <Grid container direction="column" justifyContent="space-between" style={{ height: '100%' }}>
+          <Grid container className={classes.deviceAndJoinButtonsContainer}>
             <div>
               <Hidden smDown>
                 <ToggleAudioButton className={classes.deviceButton} disabled={disableButtons} />
